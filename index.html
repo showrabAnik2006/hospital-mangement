@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saint Marys Campus - Complete System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #005a9c;
+            --secondary-blue: #003a6c;
+            --light-bg: #f4f7f6;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--light-bg); color: var(--text-dark); line-height: 1.6; scroll-behavior: smooth; }
+
+        /* --- Navbar --- */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background-color: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.4rem; font-weight: bold; color: var(--primary-blue); display: flex; align-items: center; gap: 10px; cursor: pointer;}
+        .nav-links a { text-decoration: none; color: var(--text-dark); margin: 0 15px; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary-blue); }
+        .nav-links a.nav-ambulance { color: var(--danger); font-weight: bold; }
+
+        /* --- Buttons --- */
+        .btn-outline { background: transparent; border: 2px solid var(--primary-blue); color: var(--primary-blue); padding: 8px 18px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-outline:hover { background: var(--primary-blue); color: var(--white); }
+        .btn-primary { background-color: var(--primary-blue); color: var(--white); border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 0.9rem;}
+        .btn-primary:hover { background-color: var(--secondary-blue); }
+        
+        .btn-success { background-color: var(--success); color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.3s;}
+        .btn-danger { background-color: var(--danger); color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.3s;}
+        .btn-warning { background-color: var(--warning); color: #333; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.3s;}
+        .btn-dark { background-color: #343a40; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.3s;}
+
+        /* --- Hero Section --- */
+        .hero { background: linear-gradient(rgba(0,90,156,0.8), rgba(0,90,156,0.8)), url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1920&q=80') center/cover; height: 55vh; display: flex; align-items: center; padding: 0 5%; color: var(--white); }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 15px; }
+
+        /* --- General Sections --- */
+        .section-padding { padding: 4rem 5%; text-align: center; }
+        .section-padding h2 { color: var(--secondary-blue); margin-bottom: 2rem; font-size: 2rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        .card { background: var(--white); padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid var(--border-color); transition: 0.3s;}
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .card-icon { font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 15px; }
+
+        .filter-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 2rem; flex-wrap: wrap; }
+        .filter-container input, .filter-container select { padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 1rem; min-width: 250px; outline: none; }
+        .doctor-card { background: var(--light-bg); padding: 2rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;}
+        .doctor-avatar { font-size: 2.5rem; color: white; background: var(--primary-blue); width: 80px; height: 80px; line-height: 80px; border-radius: 50%; margin: 0 auto 15px; }
+        .doctor-specialty { color: var(--primary-blue); font-weight: bold; margin-bottom: 15px; font-size: 0.9rem; background: #e6f0fa; display: inline-block; padding: 4px 12px; border-radius: 15px; }
+
+        /* --- Modal Styles --- */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background-color: var(--white); padding: 2rem; border-radius: 8px; width: 90%; max-width: 500px; position: relative; max-height: 90vh; overflow-y: auto;}
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-light); }
+        
+        /* --- Auth Form --- */
+        #auth-section { display: none; min-height: 80vh; align-items: center; justify-content: center; background: var(--light-bg); }
+        .auth-container { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 500; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; font-family: inherit;}
+
+        .demo-creds { background: #e6f0fa; padding: 15px; border-radius: 5px; border: 1px dashed var(--primary-blue); margin-bottom: 20px; text-align: left; font-size: 0.9rem;}
+        .demo-creds h4 { color: var(--primary-blue); margin-bottom: 8px; }
+        .demo-creds ul { list-style: none; padding-left: 0; margin-bottom: 10px;}
+        .demo-creds li { margin-bottom: 5px; }
+
+        /* --- Dashboard Layout --- */
+        #dashboard-section { display: none; height: 100vh; overflow: hidden; }
+        .dash-layout { display: flex; height: 100%; }
+        .sidebar { width: 250px; background: var(--secondary-blue); color: white; display: flex; flex-direction: column; flex-shrink: 0;}
+        .sidebar-header { padding: 20px; font-size: 1.2rem; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center;}
+        .sidebar-menu { list-style: none; padding: 20px 0; flex: 1; overflow-y: auto;}
+        .sidebar-menu li { padding: 15px 20px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 10px; }
+        .sidebar-menu li:hover, .sidebar-menu li.active { background: rgba(255,255,255,0.1); border-left: 4px solid var(--primary-blue);}
+        
+        .main-content { flex: 1; background: var(--light-bg); display: flex; flex-direction: column; overflow-y: auto; width: calc(100% - 250px);}
+        .topbar { background: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .content-area { padding: 20px; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .stat-card { background: white; padding: 20px; border-radius: 8px; border-left: 5px solid var(--primary-blue); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border-color); vertical-align: middle;}
+        th { background: var(--primary-blue); color: white; }
+        tr:hover { background-color: #f9f9f9; }
+        
+        .status-badge { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; display: inline-block;}
+        .status-pending { background: #ffeeba; color: #856404; }
+        .status-confirmed { background: #d4edda; color: #155724; }
+        .status-icu { background: #343a40; color: white; }
+
+        .custom-alert { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: white; border-left: 5px solid var(--primary-blue); padding: 15px 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); border-radius: 4px; z-index: 9999; display: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="customAlert" class="custom-alert">Message</div>
+
+    <!-- 1. MAIN PUBLIC WEBSITE -->
+    <div id="main-website">
+        <header class="navbar">
+            <div class="logo" onclick="location.reload()"><i class="fa-solid fa-hospital-user"></i> Saint Marys Campus</div>
+            <nav class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#find-doctor">Find a Doctor</a>
+                <a href="javascript:void(0)" onclick="openModal('ambulanceModal')" class="nav-ambulance"><i class="fa-solid fa-truck-medical"></i> Book Ambulance</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn-outline" onclick="showAuthPage()">Login / Register</button>
+            </div>
+        </header>
+
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1>World-Class Care, Right Here.</h1>
+                <p>Manage appointments, health records, and request emergency services instantly.</p>
+                <button class="btn-primary" style="padding: 12px 24px; font-size: 1rem;" onclick="showAuthPage()">Login to Patient Portal</button>
+            </div>
+        </section>
+
+        <section class="section-padding" id="services">
+            <h2>Our Patient Services</h2>
+            <div class="grid">
+                <div class="card"><i class="fa-solid fa-file-medical card-icon"></i><h3>Health Records</h3><p>Access your lab results securely.</p></div>
+                <div class="card"><i class="fa-solid fa-bed-pulse card-icon" style="color:var(--danger);"></i><h3>ICU Support</h3><p>State-of-the-art intensive care unit available 24/7.</p></div>
+                <div class="card"><i class="fa-solid fa-file-invoice-dollar card-icon"></i><h3>Billing & Insurance</h3><p>View statements and pay bills online.</p></div>
+            </div>
+        </section>
+
+        <section class="section-padding" id="find-doctor" style="background: white;">
+            <h2>Find a Specialist</h2>
+            <div class="filter-container">
+                <input type="text" id="searchName" placeholder="Search doctor by name...">
+                <select id="filterSpecialty">
+                    <option value="All">All Specialties</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Neurology">Neurology</option>
+                    <option value="Orthopedics">Orthopedics</option>
+                    <option value="Pediatrics">Pediatrics</option>
+                </select>
+            </div>
+            <div class="grid" id="doctor-list-public"></div>
+        </section>
+    </div>
+
+    <!-- 2. MODALS -->
+    <!-- Ambulance Modal -->
+    <div id="ambulanceModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('ambulanceModal')">&times;</span>
+            <h2 style="color: var(--danger); margin-bottom: 15px;"><i class="fa-solid fa-truck-medical"></i> Call Ambulance</h2>
+            <form onsubmit="submitAmbulance(event)">
+                <div class="form-group"><label>Patient Name</label><input type="text" id="ambName" required></div>
+                <div class="form-group"><label>Phone Number</label><input type="tel" id="ambPhone" required></div>
+                <div class="form-group"><label>Pickup Address</label><input type="text" id="ambLocation" required></div>
+                <button type="submit" class="btn-danger w-100" style="width: 100%; padding: 12px;">Dispatch Now</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- NEW: Doctor Request Lab Modal (Select 1 of 5 Lab Techs) -->
+    <div id="assignLabModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('assignLabModal')">&times;</span>
+            <h2 style="color: var(--primary-blue); margin-bottom: 15px;"><i class="fa-solid fa-flask"></i> Request Lab Test</h2>
+            <form onsubmit="submitLabRequest(event)">
+                <div class="form-group">
+                    <label>Select Lab Technician</label>
+                    <select id="select-lab-tech" required></select>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 10px;">Send Request to Lab</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Submit Lab Report Modal (For Lab Tech) -->
+    <div id="submitReportModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('submitReportModal')">&times;</span>
+            <h2 style="color: var(--primary-blue); margin-bottom: 15px;"><i class="fa-solid fa-upload"></i> Submit Lab Data</h2>
+            <form onsubmit="saveLabReport(event)">
+                <div class="form-group">
+                    <label>Medical/Lab Findings Data</label>
+                    <textarea id="labReportText" rows="6" required placeholder="Type the test results here..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 10px;">Upload Lab Report</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Review Lab Report Modal (For Doctor) -->
+    <div id="reviewReportModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('reviewReportModal')">&times;</span>
+            <h2 style="color: var(--primary-blue); margin-bottom: 15px;"><i class="fa-solid fa-stethoscope"></i> Review Lab Report</h2>
+            <div id="doctorReviewContent" style="padding: 15px; background: #f9f9f9; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 15px; min-height: 100px; white-space: pre-wrap;"></div>
+            
+            <h3 style="margin-bottom: 10px; font-size: 1.1rem;">Doctor's Final Decision:</h3>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <button class="btn-success" style="flex: 1; padding: 12px; font-size: 1rem;" onclick="evaluateLabReport('Green')"><i class="fa-solid fa-check-circle"></i> GREEN (All Good)</button>
+                <button class="btn-danger" style="flex: 1; padding: 12px; font-size: 1rem;" onclick="evaluateLabReport('Red')"><i class="fa-solid fa-exclamation-triangle"></i> RED (Come Tomorrow)</button>
+            </div>
+            <button class="btn-dark w-100" style="width: 100%; padding: 12px; font-size: 1rem;" onclick="evaluateLabReport('ICU')">
+                <i class="fa-solid fa-bed-pulse"></i> ⚠️ CRITICAL: ADMIT TO ICU
+            </button>
+        </div>
+    </div>
+
+    <!-- View Lab Report Modal (For Patient) -->
+    <div id="viewReportModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('viewReportModal')">&times;</span>
+            <h2 style="color: var(--primary-blue); margin-bottom: 15px;"><i class="fa-solid fa-file-medical"></i> Medical Report</h2>
+            <div id="finalReportContent" style="padding: 15px; background: #f9f9f9; border: 1px solid #ccc; border-radius: 5px; min-height: 100px;"></div>
+        </div>
+    </div>
+
+    <!-- Patient Booking Modal (Select 1 of 5 Doctors) -->
+    <div id="patientBookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('patientBookingModal')">&times;</span>
+            <h2 style="color: var(--primary-blue); margin-bottom: 15px;">Book Appointment</h2>
+            <form onsubmit="bookAppointment(event)">
+                <div class="form-group"><label>Select Doctor (5 Available)</label><select id="book-doctor" required></select></div>
+                <div class="form-group"><label>Preferred Date</label><input type="date" id="book-date" required></div>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 10px;">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. AUTHENTICATION -->
+    <div id="auth-section">
+        <div class="auth-container">
+            <h2 style="color: var(--primary-blue); margin-bottom: 15px;"><i class="fa-solid fa-user-lock"></i> Portal Access</h2>
+            
+            <div class="demo-creds">
+                <h4><i class="fa-solid fa-circle-info"></i> Available Login IDs (Password: 1234)</h4>
+                <ul>
+                    <li><strong>Admin (1):</strong> admin1</li>
+                    <li><strong>Doctors (5):</strong> doc1, doc2, doc3, doc4, doc5</li>
+                    <li><strong>Lab Techs (5):</strong> lab1, lab2, lab3, lab4, lab5</li>
+                    <li><strong>Patients (5):</strong> pat1, pat2, pat3, pat4, pat5</li>
+                </ul>
+            </div>
+
+            <form id="form-login" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>User ID</label>
+                    <input type="text" id="login-id" required placeholder="Enter User ID (e.g. pat1)">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-pass" required placeholder="Enter Password">
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; font-size:1.1rem;">Secure Login</button>
+                <button type="button" class="btn-outline" style="width: 100%; margin-top: 10px;" onclick="showMainPage()">Back to Home</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 4. DASHBOARD -->
+    <div id="dashboard-section">
+        <div class="dash-layout">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <i class="fa-solid fa-hospital"></i> Portal
+                    <div id="dash-role-badge" style="font-size: 0.8rem; font-weight: normal; color: #b3d4ff;">Role</div>
+                </div>
+                <ul class="sidebar-menu" id="sidebar-menu"></ul>
+            </div>
+            
+            <div class="main-content">
+                <div class="topbar">
+                    <h3 id="dash-welcome">Welcome</h3>
+                    <button class="btn-outline" style="border-color: var(--danger); color: var(--danger);" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+                </div>
+                <div class="content-area" id="dash-content"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        function showAlert(message, isError = false) {
+            const alertBox = document.getElementById('customAlert');
+            alertBox.innerText = message;
+            alertBox.style.borderLeftColor = isError ? "var(--danger)" : "var(--primary-blue)";
+            alertBox.style.display = 'block';
+            setTimeout(() => { alertBox.style.display = 'none'; }, 3500);
+        }
+
+        // --- Database Setup ---
+        const usersDB = [
+            { id: "admin1", pass: "1234", role: "admin", name: "System Administrator" },
+            // Doctors
+            { id: "doc1", pass: "1234", role: "doctor", name: "Dr. Sarah Jenkins" },
+            { id: "doc2", pass: "1234", role: "doctor", name: "Dr. Michael Chen" },
+            { id: "doc3", pass: "1234", role: "doctor", name: "Dr. James Smith" },
+            { id: "doc4", pass: "1234", role: "doctor", name: "Dr. Emily Rahman" },
+            { id: "doc5", pass: "1234", role: "doctor", name: "Dr. Robert Fox" },
+            // Lab Techs
+            { id: "lab1", pass: "1234", role: "lab", name: "Lab Technician 1 (John)" },
+            { id: "lab2", pass: "1234", role: "lab", name: "Lab Technician 2 (Mike)" },
+            { id: "lab3", pass: "1234", role: "lab", name: "Lab Technician 3 (Sara)" },
+            { id: "lab4", pass: "1234", role: "lab", name: "Lab Technician 4 (Anna)" },
+            { id: "lab5", pass: "1234", role: "lab", name: "Lab Technician 5 (Paul)" },
+            // Patients
+            { id: "pat1", pass: "1234", role: "patient", name: "Showrab Chowdhury" },
+            { id: "pat2", pass: "1234", role: "patient", name: "John Doe" },
+            { id: "pat3", pass: "1234", role: "patient", name: "Alice Smith" },
+            { id: "pat4", pass: "1234", role: "patient", name: "Bob Marley" },
+            { id: "pat5", pass: "1234", role: "patient", name: "Eve Adams" }
+        ];
+
+        // Public Data for Booking
+        const doctorsDB = [
+            { id: "doc1", name: "Dr. Sarah Jenkins", specialty: "Cardiology", icon: "fa-heart-pulse", exp: "15 Yrs" },
+            { id: "doc2", name: "Dr. Michael Chen", specialty: "Neurology", icon: "fa-brain", exp: "10 Yrs" },
+            { id: "doc3", name: "Dr. James Smith", specialty: "Orthopedics", icon: "fa-bone", exp: "20 Yrs" },
+            { id: "doc4", name: "Dr. Emily Rahman", specialty: "Pediatrics", icon: "fa-baby", exp: "8 Yrs" },
+            { id: "doc5", name: "Dr. Robert Fox", specialty: "Cardiology", icon: "fa-heart-pulse", exp: "12 Yrs" }
+        ];
+
+        const labTechsDB = usersDB.filter(u => u.role === 'lab');
+
+        // Main State Array
+        let appointmentsDB = [];
+        let ambulanceDB = [];
+        let icuDB = []; 
+        let currentUser = null;
+        let activeAppIdForReport = null;
+
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        // --- Public UI ---
+        function renderPublicDoctors(list) {
+            document.getElementById('doctor-list-public').innerHTML = list.map(doc => `
+                <div class="doctor-card">
+                    <div class="doctor-avatar"><i class="fa-solid ${doc.icon}"></i></div>
+                    <h3>${doc.name}</h3><div class="doctor-specialty">${doc.specialty}</div>
+                    <button class="btn-outline" onclick="showAuthPage()">Login to Book</button>
+                </div>`).join('');
+        }
+        window.onload = () => { renderPublicDoctors(doctorsDB); };
+
+        function submitAmbulance(e) {
+            e.preventDefault();
+            ambulanceDB.push({ id: Math.floor(Math.random()*1000)+500, name: document.getElementById('ambName').value, phone: document.getElementById('ambPhone').value, location: document.getElementById('ambLocation').value, status: "Dispatched" });
+            showAlert("Ambulance dispatched!"); e.target.reset(); closeModal('ambulanceModal');
+        }
+
+        // --- Auth System ---
+        function showMainPage() { document.getElementById('main-website').style.display = 'block'; document.getElementById('auth-section').style.display = 'none'; document.getElementById('dashboard-section').style.display = 'none'; }
+        function showAuthPage() { document.getElementById('main-website').style.display = 'none'; document.getElementById('auth-section').style.display = 'flex'; document.getElementById('dashboard-section').style.display = 'none'; }
+        function showDashboard() { document.getElementById('main-website').style.display = 'none'; document.getElementById('auth-section').style.display = 'none'; document.getElementById('dashboard-section').style.display = 'block'; }
+        function logout() { currentUser = null; document.getElementById('form-login').reset(); showMainPage(); }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const inputId = document.getElementById('login-id').value.trim();
+            const inputPass = document.getElementById('login-pass').value.trim();
+            const foundUser = usersDB.find(u => u.id === inputId && u.pass === inputPass);
+            
+            if(foundUser) {
+                currentUser = { id: foundUser.id, name: foundUser.name, role: foundUser.role };
+                showAlert(`Welcome, ${currentUser.name}!`);
+                setupDashboard(); showDashboard();
+            } else {
+                showAlert("Invalid User ID or Password.", true);
+            }
+        }
+
+        function setupDashboard() {
+            document.getElementById('dash-welcome').innerText = `Welcome, ${currentUser.name}`;
+            document.getElementById('dash-role-badge').innerText = currentUser.role.toUpperCase();
+            const menu = document.getElementById('sidebar-menu');
+            const content = document.getElementById('dash-content');
+            
+            if(currentUser.role === 'admin') {
+                menu.innerHTML = `<li class="active"><i class="fa-solid fa-chart-pie"></i> Overview & ICU</li>`;
+                renderAdminDashboard(content);
+            } else if(currentUser.role === 'doctor') {
+                menu.innerHTML = `<li class="active"><i class="fa-solid fa-calendar-check"></i> Patient List & Reports</li>`;
+                renderDoctorDashboard(content);
+            } else if(currentUser.role === 'lab') {
+                menu.innerHTML = `<li class="active"><i class="fa-solid fa-flask"></i> My Assigned Labs</li>`;
+                renderLabDashboard(content);
+            } else if(currentUser.role === 'patient') {
+                menu.innerHTML = `
+                    <li class="active" onclick="switchPatientTab(this, 'appointments')"><i class="fa-solid fa-calendar-check"></i> My Appointments</li>
+                    <li onclick="switchPatientTab(this, 'findDoctor')"><i class="fa-solid fa-user-doctor"></i> Find a Doctor</li>
+                    <li onclick="switchPatientTab(this, 'emergency')" style="color:#ffb3b3;"><i class="fa-solid fa-truck-medical"></i> Emergency & ICU</li>
+                `;
+                renderPatientDashboard(content);
+            }
+        }
+
+        // --- Admin Dashboard ---
+        function renderAdminDashboard(container) {
+            let appRows = appointmentsDB.map(app => `<tr><td>#${app.id}</td><td>${app.patientName}</td><td>${app.doctorName}</td><td><span class="status-badge status-confirmed">${app.status}</span></td></tr>`).join('');
+            let icuRows = icuDB.map(icu => `<tr><td>#${icu.id}</td><td>${icu.patient}</td><td>${icu.type}</td><td>${icu.referredBy}</td><td><span class="status-badge status-icu">Admitted</span></td></tr>`).join('');
+            container.innerHTML = `
+                <div class="stats-grid">
+                    <div class="stat-card"><h3>${appointmentsDB.length}</h3><p>Total Appointments</p></div>
+                    <div class="stat-card" style="border-left-color: #343a40;"><h3>${icuDB.length}</h3><p>ICU Patients</p></div>
+                </div>
+                <h2 style="color:#343a40; margin-bottom:10px;"><i class="fa-solid fa-bed-pulse"></i> Live ICU Patients</h2>
+                <table><tr><th>ID</th><th>Patient Name</th><th>Admit Type</th><th>Referred By</th><th>Status</th></tr>${icuRows || '<tr><td colspan="5">No patients in ICU</td></tr>'}</table>
+                <h2 style="color:var(--secondary-blue); margin-bottom:10px;">System Appointments</h2>
+                <table><tr><th>ID</th><th>Patient Name</th><th>Doctor</th><th>Status</th></tr>${appRows || '<tr><td colspan="4">No appointments</td></tr>'}</table>
+            `;
+        }
+
+        // --- Doctor Workflow ---
+        function renderDoctorDashboard(container) {
+            let myApps = appointmentsDB.filter(app => app.doctorId === currentUser.id);
+            let tableRows = myApps.map(app => {
+                let actionBtn = "";
+                if(app.status === 'Pending') actionBtn = `<button class="btn-success" onclick="approveApp(${app.id})">Approve</button>`;
+                else if(app.status === 'ICU Admitted') actionBtn = `<span class="status-badge status-icu">In ICU Care</span>`;
+                else if(app.status === 'Confirmed') {
+                    if(app.labStatus === 'None') actionBtn = `<button class="btn-primary" onclick="openLabRequestModal(${app.id})">Request Lab</button>`;
+                    else if(app.labStatus === 'Requested') actionBtn = `<span style="color:var(--warning);"><i class="fa-solid fa-clock"></i> Sent to ${app.labTechName}</span>`;
+                    else if(app.labStatus === 'Submitted') actionBtn = `<button class="btn-warning" onclick="openReviewModal(${app.id})">Review Lab</button>`;
+                    else if(app.labStatus === 'Reviewed') actionBtn = `<button class="btn-outline" onclick="viewFinalReport(${app.id})">View Final</button>`;
+                }
+                return `<tr><td>#${app.id}</td><td>${app.patientName}</td><td>${app.date}</td><td><span class="status-badge ${app.status==='Pending'?'status-pending':(app.status==='ICU Admitted'?'status-icu':'status-confirmed')}">${app.status}</span></td><td>${actionBtn}</td></tr>`;
+            }).join('');
+            container.innerHTML = `<h2 style="margin-bottom:15px; color:var(--secondary-blue);">My Patient List</h2><table><tr><th>Appt ID</th><th>Patient Name</th><th>Date</th><th>Status</th><th>Action Required</th></tr>${tableRows || '<tr><td colspan="5">No patients.</td></tr>'}</table>`;
+        }
+
+        function approveApp(id) { let app = appointmentsDB.find(a => a.id === id); if(app) { app.status = "Confirmed"; showAlert(`Approved!`); setupDashboard(); } }
+        
+        // 1. Doctor Selects Lab Tech
+        function openLabRequestModal(id) {
+            activeAppIdForReport = id;
+            const select = document.getElementById('select-lab-tech');
+            select.innerHTML = labTechsDB.map(lt => `<option value="${lt.id}">${lt.name}</option>`).join('');
+            openModal('assignLabModal');
+        }
+
+        // 2. Doctor Sends Request to specific Lab Tech
+        function submitLabRequest(e) {
+            e.preventDefault();
+            let app = appointmentsDB.find(a => a.id === activeAppIdForReport);
+            let selectedTechId = document.getElementById('select-lab-tech').value;
+            let selectedTechName = labTechsDB.find(l => l.id === selectedTechId).name;
+            
+            if(app) {
+                app.labStatus = "Requested";
+                app.labTechId = selectedTechId;
+                app.labTechName = selectedTechName;
+                showAlert(`Lab Test sent specifically to ${selectedTechName}!`);
+                closeModal('assignLabModal');
+                setupDashboard();
+            }
+        }
+
+        // 4. Doctor Reviews Submitted Report
+        function openReviewModal(id) {
+            let app = appointmentsDB.find(a => a.id === id);
+            if(app) { activeAppIdForReport = id; document.getElementById('doctorReviewContent').innerText = app.reportData; openModal('reviewReportModal'); }
+        }
+
+        function evaluateLabReport(actionType) {
+            let app = appointmentsDB.find(a => a.id === activeAppIdForReport);
+            if(!app) return;
+
+            app.labStatus = "Reviewed";
+            if(actionType === 'Green' || actionType === 'Red') {
+                app.doctorEvalColor = actionType;
+                app.doctorComment = (actionType === 'Green') ? "ALL GOOD" : "COME TOMORROW";
+                showAlert(`Report evaluated: ${app.doctorComment}`);
+            } 
+            else if (actionType === 'ICU') {
+                app.doctorEvalColor = 'ICU';
+                app.doctorComment = "CRITICAL: ADMITTED TO ICU";
+                app.status = "ICU Admitted";
+                icuDB.push({ id: Math.floor(Math.random()*1000)+800, patient: app.patientName, type: "Doctor Referral", referredBy: app.doctorName, status: "Admitted" });
+                showAlert("CRITICAL: Patient successfully moved to ICU Database.", true);
+            }
+            closeModal('reviewReportModal'); setupDashboard();
+        }
+
+        // --- Lab Technician Workflow (Only sees assigned tests) ---
+        function renderLabDashboard(container) {
+            // Filter only apps where THIS lab tech was selected
+            let myLabApps = appointmentsDB.filter(app => app.labTechId === currentUser.id && app.labStatus !== 'None');
+            let tableRows = myLabApps.map(app => `<tr><td>#${app.id}</td><td>${app.patientName}</td><td>${app.doctorName}</td><td>${(app.labStatus === 'Requested') ? `<button class="btn-primary" onclick="openSubmitReportModal(${app.id})">Submit Report</button>` : `<span style="color:var(--success); font-weight:bold;"><i class="fa-solid fa-check"></i> Submitted</span>`}</td></tr>`).join('');
+            container.innerHTML = `<h2 style="margin-bottom:15px; color:var(--secondary-blue);">My Assigned Lab Tests</h2><table><tr><th>Appt ID</th><th>Patient Name</th><th>Referred By</th><th>Action</th></tr>${tableRows || '<tr><td colspan="4">No assigned requests for you.</td></tr>'}</table>`;
+        }
+
+        // 3. Lab Tech Submits Data
+        function openSubmitReportModal(id) { activeAppIdForReport = id; document.getElementById('labReportText').value = ''; openModal('submitReportModal'); }
+        function saveLabReport(e) { 
+            e.preventDefault(); 
+            let app = appointmentsDB.find(a => a.id === activeAppIdForReport); 
+            if(app) { 
+                app.reportData = document.getElementById('labReportText').value; 
+                app.labStatus = "Submitted"; 
+                showAlert("Lab Report Submitted to Doctor!"); 
+                closeModal('submitReportModal'); 
+                setupDashboard(); 
+            } 
+        }
+
+        // --- Patient Workflow ---
+        function switchPatientTab(element, tab) {
+            let siblings = element.parentNode.children;
+            for(let i=0; i<siblings.length; i++) siblings[i].classList.remove('active');
+            element.classList.add('active');
+
+            const content = document.getElementById('dash-content');
+            if(tab === 'appointments') renderPatientDashboard(content);
+            if(tab === 'findDoctor') renderPatientFindDoctor(content);
+            if(tab === 'emergency') renderPatientEmergency(content); 
+        }
+
+        function renderPatientDashboard(container) {
+            let myApps = appointmentsDB.filter(app => app.patientId === currentUser.id);
+            let tableRows = myApps.map(app => `
+                <tr><td>${app.doctorName}</td><td>${app.date}</td><td><span class="status-badge ${app.status==='ICU Admitted'?'status-icu':(app.status==='Confirmed'?'status-confirmed':'status-pending')}">${app.status}</span></td>
+                <td>${(app.labStatus === 'Reviewed') ? `<button class="btn-success" onclick="viewFinalReport(${app.id})">View Report</button>` : `<span style="color:gray;">Pending</span>`}</td></tr>
+            `).join('');
+            container.innerHTML = `<h2 style="color:var(--secondary-blue); margin-bottom:15px;">My Appointments</h2><table><tr><th>Doctor</th><th>Date</th><th>Appt Status</th><th>Medical Report</th></tr>${tableRows || '<tr><td colspan="4">No appointments found.</td></tr>'}</table>`;
+        }
+
+        function renderPatientFindDoctor(container) {
+            let docCards = doctorsDB.map(doc => `<div class="doctor-card"><div class="doctor-avatar"><i class="fa-solid ${doc.icon}"></i></div><h3>${doc.name}</h3><div class="doctor-specialty">${doc.specialty}</div><button class="btn-primary" style="margin-top:10px;" onclick="openPatientBookingModal('${doc.id}')">Book Appointment</button></div>`).join('');
+            container.innerHTML = `<h2 style="color:var(--secondary-blue); margin-bottom:20px;">Book a Specialist</h2><div class="grid">${docCards}</div>`;
+        }
+
+        function renderPatientEmergency(container) {
+            let myIcu = icuDB.filter(i => i.patient === currentUser.name);
+            let icuStatusHTML = myIcu.length > 0 ? `<div style="background:var(--danger); color:white; padding:20px; border-radius:8px; margin-bottom:20px;"><h3><i class="fa-solid fa-triangle-exclamation"></i> CRITICAL CARE ALERT</h3><p>You are Admitted in ICU.</p><p><strong>Type:</strong> ${myIcu[0].type} \vert{} <strong>By:</strong>${myIcu[0].referredBy}</p></div>` : ``;
+
+            container.innerHTML = `
+                ${icuStatusHTML}
+                <h2 style="color:var(--danger); margin-bottom:15px;"><i class="fa-solid fa-truck-medical"></i> Emergency & ICU Booking</h2>
+                <div style="background:white; padding:20px; border-radius:8px; border:1px solid var(--danger); max-width:600px;">
+                    <form onsubmit="bookSelfICU(event)">
+                        <div class="form-group"><label>Patient Name</label><input type="text" value="${currentUser.name}" disabled></div>
+                        <div class="form-group"><label>Emergency Condition / Reason</label><input type="text" id="icuReason" required></div>
+                        <button type="submit" class="btn-danger w-100" style="width: 100%; padding: 12px; font-size: 1.1rem;">REQUEST IMMEDIATE ICU BED</button>
+                    </form>
+                </div>
+            `;
+        }
+
+        function bookSelfICU(e) {
+            e.preventDefault();
+            icuDB.push({ id: Math.floor(Math.random()*1000)+800, patient: currentUser.name, type: "Self-Emergency", referredBy: "Self", status: "Admitted" });
+            showAlert("EMERGENCY: ICU Bed Requested.", true); renderPatientEmergency(document.getElementById('dash-content'));
+        }
+
+        // Patient Books 1 of 5 Doctors
+        function openPatientBookingModal(docId = '') {
+            let select = document.getElementById('book-doctor');
+            select.innerHTML = doctorsDB.map(d => `<option value="${d.id}" ${d.id === docId ? 'selected' : ''}>${d.name} (${d.specialty})</option>`).join('');
+            openModal('patientBookingModal');
+        }
+
+        function bookAppointment(e) {
+            e.preventDefault();
+            const docId = document.getElementById('book-doctor').value;
+            const docInfo = doctorsDB.find(d => d.id === docId);
+
+            appointmentsDB.push({ 
+                id: Math.floor(Math.random() * 1000) + 200, 
+                patientId: currentUser.id, patientName: currentUser.name, 
+                doctorId: docId, doctorName: docInfo.name, 
+                date: document.getElementById('book-date').value, 
+                status: "Pending", labStatus: "None", 
+                labTechId: null, labTechName: null, 
+                reportData: null, doctorEvalColor: null, doctorComment: null 
+            });
+            showAlert("Appointment Booking Requested!"); closeModal('patientBookingModal'); switchPatientTab(document.querySelector('.sidebar-menu li:first-child'), 'appointments');
+        }
+
+        // 5. Patient Views Final Report
+        function viewFinalReport(id) {
+            let app = appointmentsDB.find(a => a.id === id);
+            if(app && app.labStatus === 'Reviewed') {
+                let colorHex = (app.doctorEvalColor === 'Green') ? 'var(--success)' : ((app.doctorEvalColor === 'Red') ? 'var(--warning)' : 'var(--danger)');
+                let icon = (app.doctorEvalColor === 'Green') ? 'fa-check-circle' : ((app.doctorEvalColor === 'Red') ? 'fa-exclamation-triangle' : 'fa-bed-pulse');
+                let message = (app.doctorEvalColor === 'Green') ? 'Your test results are normal.' : ((app.doctorEvalColor === 'Red') ? 'Please visit the clinic tomorrow.' : 'CRITICAL: You have been referred to the ICU.');
+                
+                document.getElementById('finalReportContent').innerHTML = `
+                    <div style="margin-bottom: 15px;"><p><strong>Patient:</strong> ${app.patientName}</p><p><strong>Doctor:</strong> ${app.doctorName}</p><p><strong>Tested By:</strong> ${app.labTechName}</p></div>
+                    <h3 style="font-size: 1rem;">Lab Findings:</h3><div style="background: white; padding: 10px; border: 1px solid #ddd; border-radius: 4px; white-space: pre-wrap; margin-bottom: 15px;">${app.reportData}</div>
+                    <h3 style="font-size: 1rem;">Doctor's Remark:</h3><div style="background: ${colorHex}22; border-left: 5px solid ${colorHex}; padding: 15px; border-radius: 4px;"><h2 style="color: ${colorHex}; margin: 0;"><i class="fa-solid ${icon}"></i> ${app.doctorComment}</h2><p style="margin-top: 5px; color: #333;">${message}</p></div>
+                `;
+                openModal('viewReportModal');
+            }
+        }
+    </script>
+</body>
+</html>
