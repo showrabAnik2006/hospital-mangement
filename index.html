@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saint Marys Campus - Complete System</title>
+    <title>Showrab Hospital - World Class Healthcare</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --primary-blue: #005a9c;
             --secondary-blue: #003a6c;
-            --light-bg: #f4f7f6;
+            --light-bg: #f8faff;
             --text-dark: #333333;
             --text-light: #666666;
             --white: #ffffff;
@@ -19,64 +19,115 @@
             --danger: #dc3545;
             --warning: #ffc107;
             --purple: #6f42c1;
+            --teal: #20c997;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--light-bg); color: var(--text-dark); line-height: 1.6; scroll-behavior: smooth; }
 
         /* --- Navbar --- */
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background-color: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 1.4rem; font-weight: bold; color: var(--primary-blue); display: flex; align-items: center; gap: 10px; cursor: pointer;}
-        .nav-links a { text-decoration: none; color: var(--text-dark); margin: 0 15px; font-weight: 500; transition: 0.3s; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-blue); display: flex; align-items: center; gap: 10px; cursor: pointer; letter-spacing: -0.5px;}
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; transition: 0.3s; font-size: 0.95rem;}
         .nav-links a:hover { color: var(--primary-blue); }
-        .nav-links a.nav-ambulance { color: var(--danger); font-weight: bold; }
+        .nav-links a.nav-ambulance { color: var(--danger); background: #ffebee; padding: 8px 15px; border-radius: 20px; }
+        .nav-links a.nav-ambulance:hover { background: var(--danger); color: white; }
 
         /* --- Buttons --- */
-        .btn-outline { background: transparent; border: 2px solid var(--primary-blue); color: var(--primary-blue); padding: 8px 18px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-outline { background: transparent; border: 2px solid var(--primary-blue); color: var(--primary-blue); padding: 8px 20px; border-radius: 25px; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .btn-outline:hover { background: var(--primary-blue); color: var(--white); }
-        .btn-primary { background-color: var(--primary-blue); color: var(--white); border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 0.9rem;}
-        .btn-primary:hover { background-color: var(--secondary-blue); }
+        .btn-primary { background-color: var(--primary-blue); color: var(--white); border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 1rem; box-shadow: 0 4px 6px rgba(0,90,156,0.2);}
+        .btn-primary:hover { background-color: var(--secondary-blue); transform: translateY(-2px);}
         .btn-success { background-color: var(--success); color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;}
         .btn-danger { background-color: var(--danger); color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;}
         .btn-warning { background-color: var(--warning); color: #333; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;}
-        .btn-dark { background-color: #343a40; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;}
 
-        /* --- Hero Section --- */
-        .hero { background: linear-gradient(rgba(0,90,156,0.8), rgba(0,90,156,0.8)), url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1920&q=80') center/cover; height: 55vh; display: flex; align-items: center; padding: 0 5%; color: var(--white); }
-        .hero h1 { font-size: 2.8rem; margin-bottom: 15px; }
+        /* --- NEW HERO SECTION --- */
+        .hero { background: linear-gradient(to right, rgba(0, 90, 156, 0.9), rgba(0, 58, 108, 0.7)), url('291DAA02-0330-4942-BF47-D73E83D5ABC4.png') center/cover; height: 75vh; display: flex; align-items: center; padding: 0 5%; color: var(--white); position: relative;}
+        .hero-content { max-width: 650px; }
+        .hero-tag { background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; display: inline-block; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.4);}
+        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; font-weight: 800;}
+        .hero p { font-size: 1.15rem; margin-bottom: 30px; opacity: 0.9; }
+        .hero-actions { display: flex; gap: 15px; }
 
-        /* --- Layout & Grids --- */
-        .section-padding { padding: 4rem 5%; text-align: center; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-        .card { background: var(--white); padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid var(--border-color); transition: 0.3s; text-align: center;}
-        
-        /* --- Modal & Auth --- */
+        /* --- SECTIONS --- */
+        .section-padding { padding: 5rem 5%; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-header h2 { color: var(--secondary-blue); font-size: 2.5rem; font-weight: 800; margin-bottom: 10px;}
+        .section-header p { color: var(--text-light); font-size: 1.1rem; max-width: 600px; margin: 0 auto;}
+
+        /* --- BENEFITS SECTION (What users get) --- */
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .benefit-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-top: 4px solid var(--primary-blue); transition: 0.3s;}
+        .benefit-card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .benefit-icon { width: 60px; height: 60px; background: #e6f0fa; color: var(--primary-blue); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; margin-bottom: 20px; }
+        .benefit-card h3 { color: var(--secondary-blue); margin-bottom: 15px; font-size: 1.3rem;}
+        .benefit-card p { color: var(--text-light); font-size: 0.95rem; }
+
+        /* --- DEPARTMENTS SECTION --- */
+        .dept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .dept-card { background: white; padding: 25px 20px; text-align: center; border-radius: 10px; border: 1px solid var(--border-color); cursor: pointer; transition: 0.3s;}
+        .dept-card:hover { border-color: var(--primary-blue); background: var(--primary-blue); color: white;}
+        .dept-card:hover i { color: white; }
+        .dept-card:hover p { color: rgba(255,255,255,0.8); }
+        .dept-card i { font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 15px; transition: 0.3s;}
+        .dept-card h4 { font-size: 1.1rem; margin-bottom: 5px; }
+        .dept-card p { font-size: 0.85rem; color: var(--text-light); transition: 0.3s;}
+
+        /* --- HOW IT WORKS --- */
+        .steps-container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; text-align: center; position: relative;}
+        .step { flex: 1; min-width: 200px; padding: 20px; }
+        .step-number { width: 50px; height: 50px; background: var(--primary-blue); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 15px; box-shadow: 0 4px 10px rgba(0,90,156,0.3);}
+        .step h4 { color: var(--secondary-blue); margin-bottom: 10px; }
+        .step p { font-size: 0.9rem; color: var(--text-light); }
+
+        /* --- FIND DOCTOR SECTION --- */
+        .filter-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 2rem; flex-wrap: wrap; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);}
+        .filter-container input, .filter-container select { padding: 12px 20px; border: 1px solid var(--border-color); border-radius: 25px; font-size: 1rem; min-width: 250px; outline: none; background: #f9f9f9;}
+        .doctor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .doctor-card { background: white; padding: 30px 20px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: 0.3s;}
+        .doctor-card:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.08); transform: translateY(-5px); border-color: var(--primary-blue);}
+        .doctor-avatar { font-size: 3rem; color: white; background: var(--primary-blue); width: 90px; height: 90px; line-height: 90px; border-radius: 50%; margin: 0 auto 15px; box-shadow: 0 5px 15px rgba(0,90,156,0.3);}
+        .doctor-specialty { color: var(--primary-blue); font-weight: bold; margin-bottom: 15px; font-size: 0.85rem; background: #e6f0fa; display: inline-block; padding: 5px 15px; border-radius: 20px; }
+
+        /* --- FOOTER --- */
+        footer { background: var(--secondary-blue); color: white; padding: 4rem 5% 2rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 2rem;}
+        .footer-col h3 { font-size: 1.2rem; margin-bottom: 20px; font-weight: bold; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s; }
+        .footer-col ul li a:hover { color: white; padding-left: 5px; }
+        .footer-bottom { text-align: center; color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+
+        /* --- Dashboard, Auth & Modals (Kept Hidden by default, untouched logic) --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
         .modal-content { background-color: var(--white); padding: 2rem; border-radius: 8px; width: 90%; max-width: 500px; position: relative; max-height: 90vh; overflow-y: auto;}
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-light); }
-        #auth-section { display: none; min-height: 80vh; align-items: center; justify-content: center; background: var(--light-bg); }
-        .auth-container { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; }
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 500; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; font-family: inherit;}
-        .demo-creds { background: #e6f0fa; padding: 15px; border-radius: 5px; border: 1px dashed var(--primary-blue); margin-bottom: 20px; text-align: left; font-size: 0.9rem;}
-
-        /* --- Dashboard Layout --- */
-        #dashboard-section { display: none; height: 100vh; overflow: hidden; }
-        .dash-layout { display: flex; height: 100%; }
-        .sidebar { width: 250px; background: var(--secondary-blue); color: white; display: flex; flex-direction: column; flex-shrink: 0;}
-        .sidebar-header { padding: 20px; font-size: 1.2rem; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center;}
-        .sidebar-menu { list-style: none; padding: 20px 0; flex: 1; overflow-y: auto;}
-        .sidebar-menu li { padding: 15px 20px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 10px; }
-        .sidebar-menu li:hover, .sidebar-menu li.active { background: rgba(255,255,255,0.1); border-left: 4px solid var(--primary-blue);}
-        .main-content { flex: 1; background: var(--light-bg); display: flex; flex-direction: column; overflow-y: auto; width: calc(100% - 250px);}
-        .topbar { background: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .content-area { padding: 20px; }
+        #auth-section, #dashboard-section { display: none; }
         
+        /* Auth Styles */
+        .auth-container { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; margin: 5rem auto;}
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem;}
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit;}
+        .demo-creds { background: #e6f0fa; padding: 15px; border-radius: 8px; border: 1px dashed var(--primary-blue); margin-bottom: 20px; text-align: left; font-size: 0.9rem;}
+        
+        /* Dashboard Layout */
+        .dash-layout { display: flex; height: 100vh; overflow: hidden; }
+        .sidebar { width: 260px; background: var(--secondary-blue); color: white; display: flex; flex-direction: column; flex-shrink: 0;}
+        .sidebar-header { padding: 20px; font-size: 1.2rem; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center;}
+        .sidebar-menu { list-style: none; padding: 15px 0; flex: 1; overflow-y: auto;}
+        .sidebar-menu li { padding: 15px 25px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 12px; font-size:0.95rem; }
+        .sidebar-menu li:hover, .sidebar-menu li.active { background: rgba(255,255,255,0.1); border-left: 4px solid var(--primary-blue);}
+        .main-content { flex: 1; background: var(--light-bg); display: flex; flex-direction: column; overflow-y: auto; }
+        .topbar { background: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .content-area { padding: 25px; }
         table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 30px; }
         th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
-        th { background: var(--primary-blue); color: white; }
-        .status-badge { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;}
+        th { background: var(--primary-blue); color: white; font-weight: 500;}
+        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;}
         .custom-alert { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: white; border-left: 5px solid var(--primary-blue); padding: 15px 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); border-radius: 4px; z-index: 9999; display: none; font-weight: bold; }
 
         /* --- Chatbot Styles --- */
@@ -97,51 +148,206 @@
 
     <div id="customAlert" class="custom-alert">Message</div>
 
-    <!-- 1. MAIN PUBLIC WEBSITE -->
+    <!-- ========================================== -->
+    <!-- 1. MAIN PUBLIC WEBSITE (COMPLETELY REDESIGNED) -->
+    <!-- ========================================== -->
     <div id="main-website">
+        
+        <!-- Navbar -->
         <header class="navbar">
-            <div class="logo" onclick="location.reload()"><i class="fa-solid fa-hospital-user"></i> Saint Marys Campus</div>
+            <div class="logo" onclick="location.reload()">
+                <i class="fa-solid fa-hospital-user"></i> Showrab Hospital
+            </div>
             <nav class="nav-links">
                 <a href="#home">Home</a>
-                <a href="#services">Services</a>
-                <a href="javascript:void(0)" onclick="openModal('ambulanceModal')" class="nav-ambulance"><i class="fa-solid fa-truck-medical"></i> Book Ambulance</a>
+                <a href="#benefits">Facilities</a>
+                <a href="#find-doctor">Find a Doctor</a>
+                <a href="javascript:void(0)" onclick="openModal('ambulanceModal')" class="nav-ambulance">
+                    <i class="fa-solid fa-truck-medical"></i> Emergency 24/7
+                </a>
             </nav>
             <div class="nav-actions">
-                <button class="btn-outline" onclick="showAuthPage()">Login / Register</button>
+                <button class="btn-outline" onclick="showAuthPage()"><i class="fa-solid fa-user"></i> Login / Register</button>
             </div>
         </header>
 
+        <!-- Hero Section -->
         <section class="hero" id="home">
             <div class="hero-content">
-                <h1>World-Class Care, Right Here.</h1>
-                <p>Manage appointments, health records, insurance plans, and request emergency services instantly.</p>
-                <button class="btn-primary" style="padding: 12px 24px; font-size: 1rem;" onclick="showAuthPage()">Login to Patient Portal</button>
+                <div class="hero-tag"><i class="fa-solid fa-award"></i> Rated #1 Hospital in the Region</div>
+                <h1>The Highest Quality Healthcare, <br>Now Fully Digital.</h1>
+                <p>Experience seamless healthcare. From booking top specialists and ordering lab tests to managing your health insurance and critical care—everything is at your fingertips.</p>
+                <div class="hero-actions">
+                    <button class="btn-primary" onclick="showAuthPage()"><i class="fa-solid fa-calendar-check"></i> Access Patient Portal</button>
+                    <a href="#benefits" style="text-decoration: none;"><button class="btn-outline" style="color: white; border-color: white;">Explore Facilities</button></a>
+                </div>
             </div>
         </section>
 
-        <section class="section-padding" id="services">
-            <h2>Our Core Services</h2>
-            <div class="grid">
-                <div class="card"><i class="fa-solid fa-user-doctor card-icon"></i><h3>Expert Doctors</h3><p>Consult with top specialists.</p></div>
-                <div class="card"><i class="fa-solid fa-flask card-icon"></i><h3>Advanced Lab</h3><p>Self-book tests and get digital reports.</p></div>
-                <div class="card"><i class="fa-solid fa-shield-halved card-icon"></i><h3>Health Insurance</h3><p>Buy secure health plans instantly.</p></div>
-                <div class="card"><i class="fa-solid fa-bed-pulse card-icon" style="color:var(--danger);"></i><h3>24/7 ICU</h3><p>State-of-the-art emergency care.</p></div>
+        <!-- What You Get / Benefits Section -->
+        <section class="section-padding" id="benefits">
+            <div class="section-header">
+                <h2>Why Choose Showrab Hospital?</h2>
+                <p>We provide a fully integrated digital healthcare experience. Here is what you can do as a registered patient.</p>
+            </div>
+            <div class="benefits-grid">
+                <!-- Benefit 1 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fa-solid fa-user-doctor"></i></div>
+                    <h3>Consult Top Specialists</h3>
+                    <p>Search and book appointments with internationally trained doctors. Track your visit status in real-time from your personal dashboard.</p>
+                </div>
+                <!-- Benefit 2 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fa-solid fa-flask-vial"></i></div>
+                    <h3>Digital Lab Tests</h3>
+                    <p>Doctors can request lab tests, or you can self-book tests like Blood Work and MRI. View your detailed reports and doctor's remarks online.</p>
+                </div>
+                <!-- Benefit 3 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fa-solid fa-shield-heart"></i></div>
+                    <h3>Health Insurance Hub</h3>
+                    <p>Browse our exclusive insurance plans (e.g., Guardian Shurokkha, Child Protection). Check eligibility and purchase instantly to secure your family.</p>
+                </div>
+                <!-- Benefit 4 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fa-solid fa-bed-pulse"></i></div>
+                    <h3>Emergency & ICU Access</h3>
+                    <p>In critical conditions, directly request an ICU bed from your dashboard, or call an ambulance with one click without logging in.</p>
+                </div>
+                <!-- Benefit 5 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fa-solid fa-file-medical"></i></div>
+                    <h3>Centralized Medical History</h3>
+                    <p>Never lose a prescription. All your medical history, final lab reports with color-coded (Green/Red) doctor feedback are saved securely.</p>
+                </div>
+                <!-- Benefit 6 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fa-solid fa-robot"></i></div>
+                    <h3>Smart AI Assistant</h3>
+                    <p>Have questions? Our 24/7 Chatbot is ready to guide you on how to book doctors, find lab results, or purchase insurance plans.</p>
+                </div>
             </div>
         </section>
+
+        <!-- Centers of Excellence (Departments) -->
+        <section class="section-padding" style="background: white;">
+            <div class="section-header">
+                <h2>Centers of Excellence</h2>
+                <p>Specialized care units equipped with modern technology and leading experts.</p>
+            </div>
+            <div class="dept-grid">
+                <div class="dept-card"><i class="fa-solid fa-heart-pulse"></i><h4>Cardiology</h4><p>Heart & Vascular Care</p></div>
+                <div class="dept-card"><i class="fa-solid fa-brain"></i><h4>Neurology</h4><p>Brain & Spine Center</p></div>
+                <div class="dept-card"><i class="fa-solid fa-bone"></i><h4>Orthopedics</h4><p>Joint Replacement</p></div>
+                <div class="dept-card"><i class="fa-solid fa-baby"></i><h4>Pediatrics</h4><p>Child & Maternal Care</p></div>
+                <div class="dept-card"><i class="fa-solid fa-lungs"></i><h4>Pulmonology</h4><p>Respiratory Health</p></div>
+            </div>
+        </section>
+
+        <!-- How It Works (Step by Step) -->
+        <section class="section-padding">
+            <div class="section-header">
+                <h2>Your Journey to Better Health</h2>
+                <p>Getting premium healthcare is now just a few clicks away.</p>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Create Account</h4>
+                    <p>Log in to your secure Patient Dashboard using your unique ID.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Book Service</h4>
+                    <p>Select a Doctor, order Lab Tests, or buy an Insurance Plan.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Get Treated</h4>
+                    <p>Visit the doctor or give your sample to the assigned Lab Tech.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>View Results</h4>
+                    <p>Receive your final report with doctor's feedback directly on your phone.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Find a Doctor Search Section -->
+        <section class="section-padding" id="find-doctor" style="background: white;">
+            <div class="section-header">
+                <h2>Find Your Specialist</h2>
+                <p>Search our directory of top-rated physicians and book instantly.</p>
+            </div>
+            <div class="filter-container">
+                <input type="text" id="searchName" placeholder="Search doctor by name (e.g., Sarah)...">
+                <select id="filterSpecialty">
+                    <option value="All">All Specialties</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Neurology">Neurology</option>
+                    <option value="Orthopedics">Orthopedics</option>
+                    <option value="Pediatrics">Pediatrics</option>
+                </select>
+            </div>
+            <div class="doctor-grid" id="doctor-list-public">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3 style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-hospital-user"></i> Showrab Hospital</h3>
+                    <p style="color:rgba(255,255,255,0.7); font-size:0.9rem; margin-top:15px;">Setting the standard for modern, digital, and compassionate healthcare.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#find-doctor">Find a Doctor</a></li>
+                        <li><a href="javascript:void(0)" onclick="showAuthPage()">Patient Portal</a></li>
+                        <li><a href="javascript:void(0)" onclick="showAuthPage()">Buy Insurance</a></li>
+                        <li><a href="javascript:void(0)" onclick="showAuthPage()">Lab Test Booking</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Emergency Contact</h3>
+                    <ul>
+                        <li style="color:var(--danger); font-size:1.2rem; font-weight:bold;"><i class="fa-solid fa-phone"></i> 911 / 16263</li>
+                        <li><i class="fa-solid fa-truck-medical"></i> 24/7 Ambulance Available</li>
+                        <li><i class="fa-solid fa-bed-pulse"></i> Instant ICU Booking</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Our Address</h3>
+                    <ul style="color:rgba(255,255,255,0.7); font-size:0.9rem;">
+                        <li>123 Health Avenue, Medical District</li>
+                        <li>Dhaka, Bangladesh</li>
+                        <li>Email: care@showrabhospital.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Showrab Hospital. All rights reserved.</p>
+            </div>
+        </footer>
     </div>
+    <!-- ========================================== -->
+    <!-- END OF PUBLIC WEBSITE -->
+    <!-- ========================================== -->
+
 
     <!-- 2. SMART CHATBOT UI -->
-    <div id="chatbot-icon" onclick="toggleChatbot()">
-        <i class="fa-solid fa-robot"></i>
-    </div>
-    
+    <div id="chatbot-icon" onclick="toggleChatbot()"><i class="fa-solid fa-robot"></i></div>
     <div id="chatbot-window" class="chatbot-window">
         <div class="chatbot-header">
             <span><i class="fa-solid fa-robot"></i> Hospital Assistant</span>
             <span onclick="toggleChatbot()" style="cursor:pointer; font-size:1.2rem;">&times;</span>
         </div>
         <div class="chatbot-messages" id="chatbot-messages">
-            <div class="message bot">Hello! Welcome to Saint Marys Campus. You can ask me how to book a doctor, request lab tests, buy insurance, or get emergency help.</div>
+            <div class="message bot">Hello! Welcome to Showrab Hospital. You can ask me how to book a doctor, request lab tests, buy insurance, or get emergency help.</div>
         </div>
         <div class="chatbot-input">
             <input type="text" id="chat-input" placeholder="Ask your question..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
@@ -149,7 +355,8 @@
         </div>
     </div>
 
-    <!-- 3. MODALS -->
+    <!-- 3. MODALS (Ambulance, Lab, Booking, etc.) -->
+    <!-- Ambulance Modal -->
     <div id="ambulanceModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('ambulanceModal')">&times;</span>
@@ -211,7 +418,20 @@
         </div>
     </div>
 
-    <!-- 4. AUTHENTICATION -->
+    <!-- Patient Booking Modal (From Dashboard & Home) -->
+    <div id="patientBookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('patientBookingModal')">&times;</span>
+            <h2 style="color: var(--primary-blue); margin-bottom: 15px;">Book Appointment</h2>
+            <form onsubmit="bookAppointment(event)">
+                <div class="form-group"><label>Select Doctor</label><select id="book-doctor" required></select></div>
+                <div class="form-group"><label>Preferred Date</label><input type="date" id="book-date" required></div>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 10px;">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 4. AUTHENTICATION (Login Screen) -->
     <div id="auth-section">
         <div class="auth-container">
             <h2 style="color: var(--primary-blue); margin-bottom: 15px;"><i class="fa-solid fa-user-lock"></i> Portal Access</h2>
@@ -233,7 +453,7 @@
         </div>
     </div>
 
-    <!-- 5. DASHBOARD -->
+    <!-- 5. DASHBOARD (Admin, Doctor, Lab, Patient) -->
     <div id="dashboard-section">
         <div class="dash-layout">
             <div class="sidebar">
@@ -253,7 +473,7 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT LOGIC (Untouched Backend Logic) -->
     <script>
         function showAlert(message, isError = false) {
             const alertBox = document.getElementById('customAlert');
@@ -273,10 +493,8 @@
             const inputField = document.getElementById('chat-input');
             const message = inputField.value.trim();
             if(!message) return;
-
             appendMessage(message, 'user');
             inputField.value = '';
-
             setTimeout(() => {
                 const response = getBotResponse(message.toLowerCase());
                 appendMessage(response, 'bot');
@@ -293,21 +511,12 @@
         }
 
         function getBotResponse(msg) {
-            if(msg.includes('book') || msg.includes('appointment') || msg.includes('doctor')) {
-                return "To book a doctor, log in as a Patient, go to 'Find a Doctor' in your dashboard, select a specialist, and confirm the booking.";
-            } else if(msg.includes('lab') || msg.includes('test') || msg.includes('report')) {
-                return "You can self-book lab tests from the 'Book Lab Test' tab in your dashboard. You can add multiple tests to your cart. Once the lab tech submits the results, view them in 'My Appointments'.";
-            } else if(msg.includes('insurance') || msg.includes('plan')) {
-                return "We offer Guardian Shurokkha, Guardian Sanchay, Child Protection, and Group Health. Go to 'Insurance Plans' in your dashboard, check your eligibility, and purchase directly.";
-            } else if(msg.includes('emergency') || msg.includes('ambulance') || msg.includes('icu')) {
-                return "For emergencies, use the red 'Book Ambulance' button on the top menu. To secure an ICU bed instantly, go to the 'Emergency & ICU' tab in your patient dashboard.";
-            } else if(msg.includes('login') || msg.includes('password') || msg.includes('id')) {
-                return "Use the 'Login' button. Demo Patient IDs: pat1, pat2. Doctor IDs: doc1, doc2. Lab Tech IDs: lab1, lab2. Admin: admin1. The password for everyone is 1234.";
-            } else if(msg.includes('hi') || msg.includes('hello')) {
-                return "Hello! How can I assist you with your healthcare needs today?";
-            } else {
-                return "I'm a virtual assistant. You can ask me about booking doctors, lab tests, buying insurance plans, or emergency ICU services!";
-            }
+            if(msg.includes('book') || msg.includes('appointment') || msg.includes('doctor')) return "To book a doctor, log in as a Patient using the portal. You can find your specialist and book instantly.";
+            else if(msg.includes('lab') || msg.includes('test')) return "You can self-book lab tests from the 'Book Lab Test' tab in your dashboard.";
+            else if(msg.includes('insurance') || msg.includes('plan')) return "We offer Guardian Shurokkha, Child Protection, and more. Go to 'Insurance Plans' in your dashboard to purchase.";
+            else if(msg.includes('emergency') || msg.includes('icu')) return "For emergencies, use the red 'Emergency 24/7' button on the menu. You can book an ICU bed instantly from your patient dashboard.";
+            else if(msg.includes('login') || msg.includes('id')) return "Demo IDs - Patient: pat1, Doctor: doc1, Lab: lab1, Admin: admin1. Password is 1234 for all.";
+            else return "I can help you with booking doctors, lab tests, buying insurance, or emergency ICU services!";
         }
 
         // --- Database Setup ---
@@ -331,11 +540,11 @@
         ];
 
         const doctorsDB = [
-            { id: "doc1", name: "Dr. Sarah Jenkins", specialty: "Cardiology", fee: "$100" },
-            { id: "doc2", name: "Dr. Michael Chen", specialty: "Neurology", fee: "$120" },
-            { id: "doc3", name: "Dr. James Smith", specialty: "Orthopedics", fee: "$90" },
-            { id: "doc4", name: "Dr. Emily Rahman", specialty: "Pediatrics", fee: "$80" },
-            { id: "doc5", name: "Dr. Robert Fox", specialty: "Cardiology", fee: "$110" }
+            { id: "doc1", name: "Dr. Sarah Jenkins", specialty: "Cardiology", icon: "fa-heart-pulse", exp: "15 Yrs" },
+            { id: "doc2", name: "Dr. Michael Chen", specialty: "Neurology", icon: "fa-brain", exp: "10 Yrs" },
+            { id: "doc3", name: "Dr. James Smith", specialty: "Orthopedics", icon: "fa-bone", exp: "20 Yrs" },
+            { id: "doc4", name: "Dr. Emily Rahman", specialty: "Pediatrics", icon: "fa-baby", exp: "8 Yrs" },
+            { id: "doc5", name: "Dr. Robert Fox", specialty: "Cardiology", icon: "fa-heart-pulse", exp: "12 Yrs" }
         ];
 
         const labTestsCatalog = [
@@ -356,15 +565,33 @@
         let appointmentsDB = [];
         let ambulanceDB = [];
         let icuDB = []; 
-        let insuranceDB = []; // Tracks purchased insurance
+        let insuranceDB = []; 
         let currentUser = null;
         let activeAppIdForReport = null;
-        
         let labCart = [];
         let insuranceCart = [];
 
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        // Home Page Doctor Render
+        function renderPublicDoctors(list) {
+            document.getElementById('doctor-list-public').innerHTML = list.map(doc => `
+                <div class="doctor-card">
+                    <div class="doctor-avatar"><i class="fa-solid ${doc.icon}"></i></div>
+                    <h3>${doc.name}</h3><div class="doctor-specialty">${doc.specialty}</div>
+                    <p style="font-size:0.9rem; color:#666; margin-bottom:15px;">Exp: ${doc.exp}</p>
+                    <button class="btn-outline" onclick="showAuthPage()">Login to Book</button>
+                </div>`).join('');
+        }
+        window.onload = () => { renderPublicDoctors(doctorsDB); };
+
+        document.getElementById('searchName').addEventListener('input', () => {
+            const searchVal = document.getElementById('searchName').value.toLowerCase();
+            const specVal = document.getElementById('filterSpecialty').value;
+            renderPublicDoctors(doctorsDB.filter(d => d.name.toLowerCase().includes(searchVal) && (specVal === 'All' || d.specialty === specVal)));
+        });
+        document.getElementById('filterSpecialty').addEventListener('change', () => { document.getElementById('searchName').dispatchEvent(new Event('input')); });
 
         function submitAmbulance(e) {
             e.preventDefault();
@@ -372,7 +599,7 @@
             showAlert("Ambulance dispatched!"); e.target.reset(); closeModal('ambulanceModal');
         }
 
-        // --- Auth System ---
+        // --- Auth & Routing ---
         function showMainPage() { document.getElementById('main-website').style.display = 'block'; document.getElementById('auth-section').style.display = 'none'; document.getElementById('dashboard-section').style.display = 'none'; }
         function showAuthPage() { document.getElementById('main-website').style.display = 'none'; document.getElementById('auth-section').style.display = 'flex'; document.getElementById('dashboard-section').style.display = 'none'; }
         function showDashboard() { document.getElementById('main-website').style.display = 'none'; document.getElementById('auth-section').style.display = 'none'; document.getElementById('dashboard-section').style.display = 'block'; }
@@ -385,9 +612,7 @@
             const user = usersDB.find(u => u.id === id && u.pass === pass);
             
             if(user) {
-                currentUser = user;
-                showAlert(`Welcome, ${currentUser.name}!`);
-                setupDashboard(); showDashboard();
+                currentUser = user; showAlert(`Welcome, ${currentUser.name}!`); setupDashboard(); showDashboard();
             } else { showAlert("Invalid User ID or Password.", true); }
         }
 
@@ -418,12 +643,13 @@
             }
         }
 
-        // --- Admin Dashboard ---
+        // --- DASHBOARDS ---
         function renderAdminDashboard(container) {
-            container.innerHTML = `<h2>Admin Dashboard Active.</h2><p>Monitoring ${appointmentsDB.length} Appts and ${icuDB.length} ICU Patients.</p>`;
+            let appRows = appointmentsDB.map(app => `<tr><td>#${app.id}</td><td>${app.patientName}</td><td>${app.doctorName || '-'}</td><td><span class="status-badge status-confirmed">${app.status}</span></td></tr>`).join('');
+            let icuRows = icuDB.map(icu => `<tr><td>#${icu.id}</td><td>${icu.patient}</td><td>${icu.type}</td><td>${icu.referredBy}</td><td><span class="status-badge status-icu">Admitted</span></td></tr>`).join('');
+            container.innerHTML = `<div class="stats-grid"><div class="stat-card"><h3>${appointmentsDB.length}</h3><p>Appointments</p></div><div class="stat-card" style="border-left-color: #343a40;"><h3>${icuDB.length}</h3><p>ICU Patients</p></div></div><h2 style="color:#343a40; margin-bottom:10px;"><i class="fa-solid fa-bed-pulse"></i> Live ICU Patients</h2><table><tr><th>ID</th><th>Patient Name</th><th>Admit Type</th><th>Referred By</th><th>Status</th></tr>${icuRows || '<tr><td colspan="5">No patients in ICU</td></tr>'}</table><h2 style="color:var(--secondary-blue); margin-bottom:10px;">System Appointments</h2><table><tr><th>ID</th><th>Patient Name</th><th>Doctor</th><th>Status</th></tr>${appRows || '<tr><td colspan="4">No appointments</td></tr>'}</table>`;
         }
 
-        // --- Doctor Workflow ---
         function renderDoctorDashboard(container) {
             let myApps = appointmentsDB.filter(app => app.doctorId === currentUser.id);
             let tableRows = myApps.map(app => {
@@ -440,50 +666,26 @@
             }).join('');
             container.innerHTML = `<h2 style="margin-bottom:15px; color:var(--secondary-blue);">My Patient List</h2><table><tr><th>Appt ID</th><th>Patient</th><th>Type</th><th>Status</th><th>Action</th></tr>${tableRows || '<tr><td colspan="5">No patients.</td></tr>'}</table>`;
         }
-
-        function approveApp(id) { let app = appointmentsDB.find(a => a.id === id); if(app) { app.status = "Confirmed"; setupDashboard(); } }
+        function approveApp(id) { appointmentsDB.find(a => a.id === id).status = "Confirmed"; setupDashboard(); }
         
-        function openLabRequestModal(id) {
-            activeAppIdForReport = id;
-            document.getElementById('select-lab-tech').innerHTML = usersDB.filter(u=>u.role==='lab').map(lt => `<option value="${lt.id}">${lt.name}</option>`).join('');
-            openModal('assignLabModal');
-        }
-        function submitLabRequest(e) {
-            e.preventDefault();
-            let app = appointmentsDB.find(a => a.id === activeAppIdForReport);
-            let tid = document.getElementById('select-lab-tech').value;
-            app.labStatus = "Requested"; app.labTechId = tid; app.labTechName = usersDB.find(u=>u.id===tid).name;
-            closeModal('assignLabModal'); setupDashboard(); showAlert("Lab requested.");
-        }
+        function openLabRequestModal(id) { activeAppIdForReport = id; document.getElementById('select-lab-tech').innerHTML = usersDB.filter(u=>u.role==='lab').map(lt => `<option value="${lt.id}">${lt.name}</option>`).join(''); openModal('assignLabModal'); }
+        function submitLabRequest(e) { e.preventDefault(); let app = appointmentsDB.find(a => a.id === activeAppIdForReport); let tid = document.getElementById('select-lab-tech').value; app.labStatus = "Requested"; app.labTechId = tid; app.labTechName = usersDB.find(u=>u.id===tid).name; closeModal('assignLabModal'); setupDashboard(); showAlert("Lab requested."); }
 
         function openReviewModal(id) { activeAppIdForReport = id; document.getElementById('doctorReviewContent').innerText = appointmentsDB.find(a=>a.id===id).reportData; openModal('reviewReportModal'); }
-        function evaluateLabReport(action) {
-            let app = appointmentsDB.find(a => a.id === activeAppIdForReport);
-            app.labStatus = "Reviewed"; app.doctorEvalColor = action;
-            if(action === 'ICU') { app.status = "ICU Admitted"; icuDB.push({id: 800, patient: app.patientName, type: "Doc Referral", referredBy: app.doctorName}); }
-            closeModal('reviewReportModal'); setupDashboard(); showAlert("Report Evaluated.");
-        }
+        function evaluateLabReport(action) { let app = appointmentsDB.find(a => a.id === activeAppIdForReport); app.labStatus = "Reviewed"; app.doctorEvalColor = action; if(action === 'ICU') { app.status = "ICU Admitted"; icuDB.push({id: 800, patient: app.patientName, type: "Doc Referral", referredBy: app.doctorName}); } closeModal('reviewReportModal'); setupDashboard(); showAlert("Report Evaluated."); }
 
-        // --- Lab Tech ---
         function renderLabDashboard(container) {
             let apps = appointmentsDB.filter(app => app.labTechId === currentUser.id && (app.labStatus === 'Requested' || app.labStatus === 'SelfBooked'));
             let rows = apps.map(app => `<tr><td>#${app.id}</td><td>${app.patientName}</td><td>${app.doctorName || 'Self-Booked'}</td><td><button class="btn-primary" onclick="openSubmitReportModal(${app.id})">Submit Report</button></td></tr>`).join('');
             container.innerHTML = `<h2>Pending Lab Tests</h2><table><tr><th>ID</th><th>Patient</th><th>Referred By</th><th>Action</th></tr>${rows || '<tr><td colspan="4">No pending requests.</td></tr>'}</table>`;
         }
-        function openSubmitReportModal(id) { activeAppIdForReport = id; openModal('submitReportModal'); }
-        function saveLabReport(e) {
-            e.preventDefault();
-            let app = appointmentsDB.find(a => a.id === activeAppIdForReport);
-            app.reportData = document.getElementById('labReportText').value; app.labStatus = "Submitted";
-            closeModal('submitReportModal'); setupDashboard(); showAlert("Report Uploaded!");
-        }
+        function openSubmitReportModal(id) { activeAppIdForReport = id; document.getElementById('labReportText').value = ''; openModal('submitReportModal'); }
+        function saveLabReport(e) { e.preventDefault(); let app = appointmentsDB.find(a => a.id === activeAppIdForReport); app.reportData = document.getElementById('labReportText').value; app.labStatus = "Submitted"; closeModal('submitReportModal'); setupDashboard(); showAlert("Report Uploaded!"); }
 
-        // --- Patient Workflow ---
         function switchPatientTab(element, tab) {
             let siblings = element.parentNode.children;
             for(let i=0; i<siblings.length; i++) siblings[i].classList.remove('active');
             element.classList.add('active');
-            
             const content = document.getElementById('dash-content');
             if(tab === 'appointments') renderPatientDashboard(content);
             if(tab === 'findDoctor') renderPatientFindDoctor(content);
@@ -495,22 +697,13 @@
         function renderPatientDashboard(container) {
             let myApps = appointmentsDB.filter(a => a.patientId === currentUser.id);
             let myIns = insuranceDB.filter(i => i.patientId === currentUser.id);
-            
             let appRows = myApps.map(app => `<tr><td>${app.type || 'Doc Visit'}</td><td>${app.doctorName || '-'}</td><td>${app.status}</td><td>${app.labStatus==='Reviewed'||app.labStatus==='Submitted' ? `<button class="btn-success" onclick="viewFinalReport(${app.id})">View Report</button>` : 'Pending'}</td></tr>`).join('');
             let insRows = myIns.map(ins => `<tr><td>${ins.planName}</td><td><span class="status-badge" style="background:#d4edda; color:green;">Active</span></td></tr>`).join('');
-            
-            container.innerHTML = `
-                <h2 style="color:var(--secondary-blue); margin-bottom:15px;">My Medical History & Plans</h2>
-                <h3>Active Insurance Plans</h3>
-                <table style="margin-bottom:20px;"><tr><th>Plan Name</th><th>Status</th></tr>${insRows || '<tr><td colspan="2">No Active Plans</td></tr>'}</table>
-                <h3>My Appointments & Lab Tests</h3>
-                <table><tr><th>Type</th><th>Doctor</th><th>Status</th><th>Report</th></tr>${appRows || '<tr><td colspan="4">No Records</td></tr>'}</table>
-            `;
+            container.innerHTML = `<h2 style="color:var(--secondary-blue); margin-bottom:15px;">My Medical History & Plans</h2><h3>Active Insurance Plans</h3><table style="margin-bottom:20px;"><tr><th>Plan Name</th><th>Status</th></tr>${insRows || '<tr><td colspan="2">No Active Plans</td></tr>'}</table><h3>My Appointments & Lab Tests</h3><table><tr><th>Type</th><th>Doctor</th><th>Status</th><th>Report</th></tr>${appRows || '<tr><td colspan="4">No Records</td></tr>'}</table>`;
         }
 
-        // Self Book Doctor
         function renderPatientFindDoctor(container) {
-            let docCards = doctorsDB.map(doc => `<div class="card"><h3>${doc.name}</h3><p>${doc.specialty}</p><button class="btn-primary" onclick="openPatientBookingModal('${doc.id}')">Book Appt</button></div>`).join('');
+            let docCards = doctorsDB.map(doc => `<div class="card"><div class="benefit-icon" style="margin:0 auto 15px;"><i class="fa-solid ${doc.icon}"></i></div><h3>${doc.name}</h3><p>${doc.specialty}</p><button class="btn-primary" style="margin-top:15px;" onclick="openPatientBookingModal('${doc.id}')">Book Appt</button></div>`).join('');
             container.innerHTML = `<h2>Find a Doctor</h2><div class="grid">${docCards}</div>`;
         }
         function openPatientBookingModal(docId) { document.getElementById('book-doctor').innerHTML = doctorsDB.map(d=>`<option value="${d.id}" ${d.id===docId?'selected':''}>${d.name}</option>`).join(''); openModal('patientBookingModal'); }
@@ -521,58 +714,24 @@
             closeModal('patientBookingModal'); switchPatientTab(document.querySelector('.sidebar-menu li:first-child'), 'appointments'); showAlert("Booking Requested!");
         }
 
-        // Self Book Lab Test
         function renderPatientBookLab(container) {
             let testsHtml = labTestsCatalog.map(t => `<div style="border:1px solid #ccc; padding:15px; border-radius:5px; margin-bottom:10px; display:flex; justify-content:space-between;"><div><strong>${t.name}</strong><br>$${t.price}</div><button class="btn-outline" onclick="addLabToCart('${t.id}')">Add to Cart</button></div>`).join('');
             let cartHtml = labCart.map(c => `<li>${c.name} - $${c.price} <span style="color:red;cursor:pointer;" onclick="removeLabFromCart('${c.id}')">&times;</span></li>`).join('');
             let total = labCart.reduce((s, c) => s + c.price, 0);
-            
-            container.innerHTML = `
-                <h2>Book Lab Tests Directly</h2>
-                <div style="display:flex; gap:20px;">
-                    <div style="flex:2; background:white; padding:20px; border-radius:8px;">${testsHtml}</div>
-                    <div style="flex:1; background:var(--light-bg); padding:20px; border:radius:8px; border:1px solid #ccc; height:fit-content;">
-                        <h3>Your Cart</h3><ul style="margin:15px 0;">${cartHtml || 'Cart is empty'}</ul>
-                        <strong>Total: $${total}</strong><br><br>
-                        <select id="self-lab-tech" style="width:100%; padding:10px; margin-bottom:10px;">${usersDB.filter(u=>u.role==='lab').map(l=>`<option value="${l.id}">Assign to ${l.name}</option>`).join('')}</select>
-                        <button class="btn-primary w-100" style="width:100%;" onclick="confirmLabBooking()" ${labCart.length===0?'disabled':''}>Confirm & Pay</button>
-                    </div>
-                </div>
-            `;
+            container.innerHTML = `<h2>Book Lab Tests Directly</h2><div style="display:flex; gap:20px;"><div style="flex:2; background:white; padding:20px; border-radius:8px;">${testsHtml}</div><div style="flex:1; background:var(--light-bg); padding:20px; border-radius:8px; border:1px solid #ccc; height:fit-content;"><h3>Your Cart</h3><ul style="margin:15px 0; padding-left:15px;">${cartHtml || 'Cart is empty'}</ul><strong>Total: $${total}</strong><br><br><select id="self-lab-tech" style="width:100%; padding:10px; margin-bottom:10px;">${usersDB.filter(u=>u.role==='lab').map(l=>`<option value="${l.id}">Assign to ${l.name}</option>`).join('')}</select><button class="btn-primary w-100" style="width:100%;" onclick="confirmLabBooking()" ${labCart.length===0?'disabled':''}>Confirm & Pay</button></div></div>`;
         }
         function addLabToCart(id) { if(!labCart.find(c=>c.id===id)) { labCart.push(labTestsCatalog.find(t=>t.id===id)); renderPatientBookLab(document.getElementById('dash-content')); } }
         function removeLabFromCart(id) { labCart = labCart.filter(c=>c.id!==id); renderPatientBookLab(document.getElementById('dash-content')); }
         function confirmLabBooking() {
             let tid = document.getElementById('self-lab-tech').value;
-            labCart.forEach(test => {
-                appointmentsDB.push({ id: Math.floor(Math.random()*1000)+300, type: "Self Lab Test: " + test.name, patientId: currentUser.id, patientName: currentUser.name, labTechId: tid, labStatus: "SelfBooked", status: "Confirmed" });
-            });
+            labCart.forEach(test => { appointmentsDB.push({ id: Math.floor(Math.random()*1000)+300, type: "Self Lab Test: " + test.name, patientId: currentUser.id, patientName: currentUser.name, labTechId: tid, labStatus: "SelfBooked", status: "Confirmed" }); });
             labCart = []; showAlert("Lab Tests Booked Successfully!"); switchPatientTab(document.querySelector('.sidebar-menu li:first-child'), 'appointments');
         }
 
-        // Book Insurance
         function renderPatientInsurance(container) {
-            let insHtml = insuranceCatalog.map(i => `
-                <div style="border:1px solid #ccc; padding:15px; border-radius:5px; margin-bottom:10px; background:white;">
-                    <h3 style="color:var(--primary-blue);">${i.name}</h3><p>${i.desc}</p>
-                    <p style="font-size:0.9rem; color:gray;"><strong>Eligibility:</strong> ${i.elig} | <strong>Premium:</strong> ${i.price}</p>
-                    <button class="btn-outline" style="margin-top:10px;" onclick="addInsToCart('${i.id}')">Select Plan</button>
-                </div>
-            `).join('');
-            
+            let insHtml = insuranceCatalog.map(i => `<div style="border:1px solid #ccc; padding:15px; border-radius:5px; margin-bottom:10px; background:white;"><h3 style="color:var(--primary-blue);">${i.name}</h3><p>${i.desc}</p><p style="font-size:0.9rem; color:gray;"><strong>Eligibility:</strong> ${i.elig} | <strong>Premium:</strong> ${i.price}</p><button class="btn-outline" style="margin-top:10px;" onclick="addInsToCart('${i.id}')">Select Plan</button></div>`).join('');
             let cartHtml = insuranceCart.map(c => `<li>${c.name} <span style="color:red;cursor:pointer;" onclick="removeInsFromCart('${c.id}')">&times;</span></li>`).join('');
-            
-            container.innerHTML = `
-                <h2>Insurance Plans</h2>
-                <div style="display:flex; gap:20px;">
-                    <div style="flex:2;">${insHtml}</div>
-                    <div style="flex:1; background:var(--light-bg); padding:20px; border-radius:8px; border:1px solid #ccc; height:fit-content;">
-                        <h3>Selected Plans</h3><ul style="margin:15px 0;">${cartHtml || 'No plans selected'}</ul>
-                        <label style="font-size:0.9rem; display:block; margin-bottom:10px;"><input type="checkbox" id="eligibility-check"> I confirm I meet the eligibility criteria.</label>
-                        <button class="btn-success w-100" style="width:100%;" onclick="confirmInsurance()" ${insuranceCart.length===0?'disabled':''}>Purchase Plans</button>
-                    </div>
-                </div>
-            `;
+            container.innerHTML = `<h2>Insurance Plans</h2><div style="display:flex; gap:20px;"><div style="flex:2;">${insHtml}</div><div style="flex:1; background:var(--light-bg); padding:20px; border-radius:8px; border:1px solid #ccc; height:fit-content;"><h3>Selected Plans</h3><ul style="margin:15px 0; padding-left:15px;">${cartHtml || 'No plans selected'}</ul><label style="font-size:0.9rem; display:block; margin-bottom:10px;"><input type="checkbox" id="eligibility-check"> I confirm I meet the eligibility criteria.</label><button class="btn-success w-100" style="width:100%;" onclick="confirmInsurance()" ${insuranceCart.length===0?'disabled':''}>Purchase Plans</button></div></div>`;
         }
         function addInsToCart(id) { if(!insuranceCart.find(c=>c.id===id)) { insuranceCart.push(insuranceCatalog.find(i=>i.id===id)); renderPatientInsurance(document.getElementById('dash-content')); } }
         function removeInsFromCart(id) { insuranceCart = insuranceCart.filter(c=>c.id!==id); renderPatientInsurance(document.getElementById('dash-content')); }
@@ -582,25 +741,14 @@
             insuranceCart = []; showAlert("Insurance Plan Purchased!"); switchPatientTab(document.querySelector('.sidebar-menu li:first-child'), 'appointments');
         }
 
-        // Emergency
         function renderPatientEmergency(container) {
-            container.innerHTML = `
-                <h2 style="color:var(--danger);"><i class="fa-solid fa-truck-medical"></i> Emergency & ICU</h2>
-                <div style="background:white; padding:20px; border:1px solid var(--danger); border-radius:8px; max-width:500px; margin-top:20px;">
-                    <p>Request an instant ICU bed.</p>
-                    <button class="btn-danger w-100" style="width:100%; padding:15px;" onclick="bookSelfICU()">REQUEST IMMEDIATE ICU BED</button>
-                </div>
-            `;
+            container.innerHTML = `<h2 style="color:var(--danger);"><i class="fa-solid fa-truck-medical"></i> Emergency & ICU</h2><div style="background:white; padding:20px; border:1px solid var(--danger); border-radius:8px; max-width:500px; margin-top:20px;"><p>Request an instant ICU bed.</p><button class="btn-danger w-100" style="width:100%; padding:15px;" onclick="bookSelfICU()">REQUEST IMMEDIATE ICU BED</button></div>`;
         }
         function bookSelfICU() { icuDB.push({ id: Math.floor(Math.random()*1000)+800, patient: currentUser.name, type: "Self-Emergency", referredBy: "Self" }); showAlert("ICU Bed Requested!", true); }
 
         function viewFinalReport(id) {
             let app = appointmentsDB.find(a => a.id === id);
-            document.getElementById('finalReportContent').innerHTML = `
-                <p><strong>Patient:</strong> ${app.patientName}</p>
-                <h3>Lab Findings:</h3><div style="background: white; padding: 10px; border: 1px solid #ddd; white-space: pre-wrap;">${app.reportData}</div>
-                ${app.doctorComment ? `<h3>Doctor's Remark:</h3><p style="color: ${app.doctorEvalColor==='Green'?'green':'red'}; font-weight:bold;">${app.doctorComment}</p>` : ''}
-            `;
+            document.getElementById('finalReportContent').innerHTML = `<p><strong>Patient:</strong> ${app.patientName}</p><h3>Lab Findings:</h3><div style="background: white; padding: 10px; border: 1px solid #ddd; white-space: pre-wrap; margin-bottom:10px;">${app.reportData}</div>${app.doctorEvalColor ? `<h3>Doctor's Remark:</h3><div style="padding:15px; border-radius:5px; background:${app.doctorEvalColor==='Green'?'#d4edda':(app.doctorEvalColor==='Red'?'#fff3cd':'#f8d7da')}; color:${app.doctorEvalColor==='Green'?'green':(app.doctorEvalColor==='Red'?'#856404':'red')}; font-weight:bold;">${app.doctorEvalColor==='Green'?'ALL GOOD: Your results are normal.':(app.doctorEvalColor==='Red'?'COME TOMORROW: Please visit the clinic.':'CRITICAL: Admitted to ICU')}</div>` : ''}`;
             openModal('viewReportModal');
         }
     </script>
